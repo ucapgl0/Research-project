@@ -5,6 +5,18 @@ import torch
 import torchvision.transforms as tt
 
 def ista_method(noise_image,origin_image,proximal_operator,spare_matrix,iterations,data_save_path):
+    """
+    implement ista method
+
+    input:  noise_image: (tensor vector) obscured image
+            origin_image: (tensor vector) original image
+            proximal_operator: the proximal model (u-net)
+            spare_matrix:(array) diagonal matrix
+            iterations: the number of iteration
+            data_save_path: the path of image saving
+    
+    output: experiment data (.npy file) and solved images
+    """
     proximal_operator.eval()
     mse_loss = nn.MSELoss()
     origin_image = torch.unsqueeze(origin_image,0)

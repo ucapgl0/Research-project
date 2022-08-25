@@ -192,12 +192,10 @@ if __name__ == '__main__':
     end = time.time()
     print("training time: " + str(end-start))
     # model.load_state_dict(torch.load('best_unet_model.mdl'))
-    # # Test model
-    # test(model,test_loader,True)
-    model.load_state_dict(torch.load(model_name))
-    # model = model.to(device)    
-    # test_loss,test_psnr,test_ssim = test(model,test_loader,True,test_img_save)
-    # print({"mse":test_loss,"psnr":test_psnr,"ssim":test_ssim})
+    # Test model  
+    model.load_state_dict(torch.load(model_name))   
+    test_loss,test_psnr,test_ssim = test(model,test_loader,True,test_img_save)
+    print({"mse":test_loss,"psnr":test_psnr,"ssim":test_ssim})
 
     
     

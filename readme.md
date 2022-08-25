@@ -56,7 +56,7 @@ python train.py --batch_size<default=8>
 
 Also user can do experiment of ISTA by typing
 ```Bash
-python --num_image<default=5>
+python experiment.py --num_image<default=5>
 --noise_data<default=[0.3,0.35,0.4,0.45,0.5]>
 ```
 

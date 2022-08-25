@@ -22,12 +22,15 @@ for noise_rate in noise_data:
     experiment_data_generate.generate_noise(noise_rate, origin_path, noise_path)
 num_label = args.num_image
 label = ["0","1","2","3","4"]
+# load the model
 net = UNet().to(device="cpu")
 net.load_state_dict(torch.load('best_unet.mdl'))
 for n in noise_data:
     for l in range(num_label):
+        # load diagonal matrix
         spare_matrix = np.load(noise_path+str(int(n*100))+".npy")
-        save_path = "./experiment_data/de_noise_ista_simplecnn/noise_"+str(int(n*100))+"/label_"+str(l)+"/"
+        save_path = "./experiment_data/de_noise_ista_unet/noise_"+str(int(n*100))+"/label_"+str(l)+"/"
+        # read obscured and original image
         img_noise = Image.open(noise_path+str(int(n*100))+"_"+str(l)+".jpg")
         img_origin = Image.open(origin_path+str(l)+".jpg")
         trans = tt.ToTensor()
