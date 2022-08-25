@@ -16,7 +16,7 @@ and then type in
 ```Bash
 cd Research-project
 ```
-finally, install the package by inputing
+Finally, install the package by inputing
 ```Bash
 pip install .
 ```
@@ -60,7 +60,7 @@ python --num_image<default=5>
 --noise_data<default=[0.3,0.35,0.4,0.45,0.5]>
 ```
 
-finally, user can do unit test by input
+Finally, user can do unit test by input
 ```Bash
 python unit_test.py
 ```
