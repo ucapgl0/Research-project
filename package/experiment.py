@@ -1,6 +1,6 @@
 import experiment_data_generate
 import training_data_generate
-from model import UNet, simple_CNN
+from model import UNet
 import ista
 import torch
 import numpy as np

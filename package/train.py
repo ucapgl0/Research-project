@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch
 from torch.utils.data import Dataset, DataLoader
 from torchvision.transforms import transforms as tt
-from model import UNet, CNN, simple_CNN
+from model import UNet, CNN
 import validation
 import psnr_ssim
 import time
@@ -13,7 +13,7 @@ from argparse import ArgumentParser
 parser = ArgumentParser(description='model-train')
 
 parser.add_argument('--batch_size', type=int, default=8, help='number of sample in each iteration')
-parser.add_argument('--model', type=int,default=1, help="pre-train model choice. 1 for Unet, 2 for CNN, 3 for simple CNN")
+parser.add_argument('--model', type=int,default=1, help="pre-train model choice. 1 for Unet, 2 for CNN")
 parser.add_argument('--path_train', type=str, default="./data/train.txt",help="training set")
 parser.add_argument('--path_validate', type=str, default="./data/valid.txt",help="validated set")
 parser.add_argument('--path_test', type=str, default="./data/test.txt",help="testing set")
@@ -97,14 +97,7 @@ def train(model,train_set,valid_set,epoch,model_save,data_save):
                 # psnr_value.append(psnr_ssim.psnr_calculation(loss.item()))
                 psnr_value.append(valid_psnr)
                 ssim_value.append(valid_ssim)
-                # img_noise = torch.squeeze(x_out)
-                # img_origin = torch.squeeze(y_in)
-                # if BATCHSIZE == 1:
-                #     ssim_value.append(psnr_ssim.ssim_calculation(img_noise.detach().numpy()*255,img_origin.detach().numpy()*255))
-                # else:
-                #     for j in range(BATCHSIZE):
-                #         ssim.append(psnr_ssim.ssim_calculation(img_noise[j].detach().numpy()*255,img_origin[j].detach().numpy()*255))
-                #     ssim_value.append(np.mean(ssim))
+                
                 if valid_loss < min_loss:
                     min_loss = valid_loss
                     # Save the best model
@@ -192,11 +185,7 @@ if __name__ == '__main__':
         data_save_path = "./data/cnn_training_data_b"+str(BATCHSIZE)+".npy"
         test_img_save = "./data/de-noise-cnn-b"+str(BATCHSIZE)+"/"
     
-    elif args.model == 3:
-        net= simple_CNN().to(device)
-        model_name = "simple_cnn.mdl"
-        data_save_path = None
-        epoch = 1
+
     
     start = time.time()
     model = train(net,train_loader,valid_loader,epoch,model_name,data_save_path)
